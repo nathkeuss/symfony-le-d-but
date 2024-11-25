@@ -15,32 +15,32 @@ class articleController extends AbstractController
          [
              'id' => 1,
              'title' => 'Article 1',
-             'content' => 'Content of article 1',
-             'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
+             'content' => 'cr7 siuu',
+             'image' => 'https://www.gamechampions.com/media/hhafyrmd/the-ronaldo-siuu-celebration-in-ea-fc-fifa.webp',
          ],
          [
              'id' => 2,
              'title' => 'Article 2',
-             'content' => 'Content of article 2',
-             'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
+             'content' => 'cristiano ronaldo',
+             'image' => 'https://media4.giphy.com/media/hryis7A55UXZNCUTNA/200w.gif?cid=6c09b952qfhtvyxcwarzi2lz9kv81vozr19sviizrewu4rui&ep=v1_gifs_search&rid=200w.gif&ct=g',
          ],
          [
              'id' => 3,
              'title' => 'Article 3',
-             'content' => 'Content of article 3',
-             'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
+             'content' => 'cristiano',
+             'image' => 'https://cdn-www.konbini.com/files/2018/11/afp-cristiano-ronaldo-juventus-e1548255667175.jpg?width=3840&quality=75&format=webp',
          ],
          [
              'id' => 4,
              'title' => 'Article 4',
-             'content' => 'Content of article 4',
-             'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
+             'content' => 'ronaldo',
+             'image' => 'https://media.baamboozle.com/uploads/images/38404/1634143284_350112_gif-url.gif',
          ],
          [
              'id' => 5,
              'title' => 'Article 5',
-             'content' => 'Content of article 5',
-             'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
+             'content' => 'siuuuu',
+             'image' => 'https://media.tenor.com/NPFbJouWeHQAAAAe/cr7-siuu.png',
          ]
 
      ];

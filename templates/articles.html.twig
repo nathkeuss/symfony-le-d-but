@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,9 +10,17 @@
 </head>
 <body>
 
-<header>
-    <h1>non</h1>
-</header>
+<main>
+
+    {% for article in articles %}
+        <p>{{ article.id }}</p>
+        <p>{{ article.title }}</p>
+        <p>{{ article.content }}</p>
+        <div>
+            <img src="{{ article.image }}" alt="">
+        </div>
+    {% endfor %}
+</main>
 
 </body>
 </html>

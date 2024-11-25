@@ -14,6 +14,13 @@ class HomeController extends AbstractController //méthode symfony
     // je créé une méthode home qui retourne une instance de la class Response de Symfony
     //qui prendra en paramètre le contenu que je lui ai mis (le h1 dans ce cas là)
     public function home()
+        // la méthode render de la classe AbtractController
+        // récupère le fichier twig passé en paramètre
+        // dans le dossier template
+        // elle le convertit en HTML
+        // elle créé une réponse HTTP valide
+        // avec en status 200
+        // et en body, le HTML généré
     {
         return $this->render("home.html.twig"); // rend mon fichier dans templates
     }

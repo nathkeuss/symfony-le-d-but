@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController
+
+class HomeController extends AbstractController //méthode symfony
 {
     // je créé une route pour ma méthode home (celle en dessous)
     // c'est ma méthode home qui sera appelée dans l'url /
@@ -14,7 +15,7 @@ class HomeController
     //qui prendra en paramètre le contenu que je lui ai mis (le h1 dans ce cas là)
     public function home()
     {
-        return new Response("<h1>Page d'accueil</h1>");
+        return $this->render("home.html.twig"); // rend mon fichier dans templates
     }
 
 }

@@ -18,9 +18,17 @@ class PokerController
         //utilisation de la propriété query qui permet de récupérer les données GET
         $age = $request->query->get('age');
 
-        var_dump($age); die;
+        // mettre dans l'url /poker?age=X
 
-        return new Response('<p>le poker</p>');
+
+
+
+        if($age < 18) {
+            return new Response('<p>ton âge est inférieur à 18 ans </p>');
+        } else {
+            return new Response("<p>c'est bon</p>");
+        }
+
     }
 
 }

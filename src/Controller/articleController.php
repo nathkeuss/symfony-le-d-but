@@ -56,7 +56,7 @@ class articleController extends AbstractController
  // je peux évidemment mettre une autre variable (content, title...)
  #[Route('/article/{id}', 'article_show')]
 
- // je mets en paramètre l'id que je veux
+ // je mets en paramètre la variable correspondant à ma route
  public function showArticle($id) {
 
      //appelle de la méthode createFromGlobals

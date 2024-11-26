@@ -4,17 +4,46 @@
     box-sizing: border-box;
 }
 
+
 body {
-    background-color: #073307;
+    margin: 0;
+    padding: 0;
     color: white;
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow-x: hidden;
 }
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('https://media2.giphy.com/media/sRHVFZVZlHsOBwYTFn/200.gif?cid=6c09b952idqkr3fxz7xvum2qzru9kgfu0e0bzg5xslooezfm&ep=v1_internal_gif_by_id&rid=200.gif&ct=g');
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    background-position: top center;
+    filter: brightness(40%);
+    pointer-events: none;
+}
+
 
 a {
     text-decoration: none;
     color: aqua;
     font-size: 2rem;
 }
+ul {
+    display: flex;
+}
 
+li {
+    padding: 10px;
+    list-style-type: none;
+}
 h1 {
     text-align: center;
     font-size: 6rem;
@@ -59,24 +88,165 @@ img {
     height: 100%;
 }
 
-
-h2 {
-    font-size: 3rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-    background-size: 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: moveGradient 3s infinite linear;
+/* Style du formulaire */
+form {
+    width: 30%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 30px;
+    background: linear-gradient(145deg, #232323, #1a1a1a); /* Effet de relief */
+    border-radius: 15px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8), -5px -5px 15px rgba(255, 255, 255, 0.1);
+    animation: pulse 2s infinite; /* Animation de respiration subtile */
 }
 
-@keyframes moveGradient {
+/* Animation pour un effet vivant */
+@keyframes pulse {
     0% {
-        background-position: 0% 50%;
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
     }
     100% {
-        background-position: 100% 50%;
+        transform: scale(1);
+    }
+}
+
+/* Champ de saisie */
+form {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    background: linear-gradient(145deg, #0d1321, #007f5f); /* Dégradé sombre et terrain */
+    border: 3px solid #ffffff; /* Bordures blanches comme les lignes du terrain */
+    border-radius: 20px; /* Coins arrondis */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Ombre pour effet dynamique */
+}
+
+/* Champ de saisie */
+form input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #0d1321; /* Texte sombre */
+    background: #ffffff; /* Fond blanc */
+    border: none;
+    border-radius: 15px;
+    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.2); /* Relief intérieur */
+    transition: all 0.3s ease;
+}
+
+form input[type="text"]:focus {
+    outline: none;
+    background: #d9f99d; /* Couleur inspirée du gazon clair */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05); /* Légère augmentation */
+}
+
+/* Bouton d'envoi */
+form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(145deg, #ffba08, #faa307); /* Couleurs ballon de foot */
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3); /* Effet de relief */
+    transition: all 0.3s ease;
+}
+
+/* Animation au survol du bouton */
+form button:hover {
+    background: linear-gradient(145deg, #faa307, #ffba08); /* Inverse les couleurs */
+    transform: translateY(-3px); /* Effet de montée */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Animation au clic */
+form button:active {
+    transform: scale(0.95); /* Réduction subtile */
+    background: linear-gradient(145deg, #f77f00, #d62828); /* Couleurs de focus */
+}
+
+
+h2 {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+    animation: flicker 2s infinite;
+}
+
+/* Glitch effect */
+h2::before,
+h2::after {
+    content: attr(data-text); /* Clone du texte */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: white;
+    overflow: hidden;
+    clip-path: inset(0 0 50% 0); /* Découpe une partie du texte */
+}
+
+h2::before {
+    text-shadow: -2px 0 red;
+    animation: glitch 0.5s infinite;
+}
+
+h2::after {
+    text-shadow: 2px 0 cyan;
+    animation: glitch 0.5s infinite reverse;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
+}
+
+/* Glitch animation */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-5px, -5px);
+        opacity: 0.8;
+    }
+    40% {
+        transform: translate(5px, 5px);
+        opacity: 1;
+    }
+    60% {
+        transform: translate(-5px, 5px);
+        opacity: 0.8;
+    }
+    80% {
+        transform: translate(5px, -5px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
     }
 }
 

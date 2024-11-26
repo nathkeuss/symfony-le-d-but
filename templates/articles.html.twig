@@ -1,6 +1,11 @@
-{% include "partials/_header.html.twig" %}
+{% extends "base.html.twig" %}
 
-<main>
+{% block metatitle %}
+    Liste des articles | CR7
+{% endblock metatitle %}
+
+
+{% block main %}
 
     {% for article in articles %}
         <h1>{{ article.title }}</h1> <!-- je mets mon titre d'article -->
@@ -10,6 +15,6 @@
         </div>
         <a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a> <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
     {% endfor %}
-</main>
 
-{% include "partials/_footer.html.twig" %}
+{% endblock main %}
+

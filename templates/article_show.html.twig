@@ -1,9 +1,17 @@
-{% include "partials/_header.html.twig" %}
+{% extends "base.html.twig" %}
 
-<h1>{{ articles.title }}</h1>
-<p>{{ articles.content }}</p>
-<div>
-    <img src="{{ articles.image }}" alt="">
-</div>
+{% block metatitle %}
+{{  articles.title}} | CR7
+{% endblock metatitle %}
 
-{% include "partials/_footer.html.twig" %}
+
+{% block main %}
+
+    <h1>{{ articles.title }}</h1>
+    <p>{{ articles.content }}</p>
+    <p>Date de création : {{ articles.createdAt | date('d/m/y h:i:s') }}</p>
+    <div>
+        <img src="{{ articles.image }}" alt="">
+    </div>
+
+{% endblock main %}

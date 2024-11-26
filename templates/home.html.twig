@@ -1,7 +1,11 @@
-{% include "partials/_header.html.twig" %} <!-- le require de twig -->
+{% extends "base.html.twig" %}
 
-<header>
+{% block metatitle %}
+
+    Accueil | CR7
+
+{% endblock metatitle %}
+
+{% block main %}
     <h2>salut</h2>
-</header>
-
-{% include "partials/_footer.html.twig" %}
+{% endblock main %}

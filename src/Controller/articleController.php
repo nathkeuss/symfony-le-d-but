@@ -50,15 +50,21 @@ class articleController extends AbstractController
          'articles' => $articles ]);
  }
 
- #[Route('/article', 'article_show')]
- public function showArticle() {
+
+ // défini l'url avec variable id, si je fais /article/1
+ // il m'affichera l'article correspondant
+ // je peux évidemment mettre une autre variable (content, title...)
+ #[Route('/article/{id}', 'article_show')]
+
+ // je mets en paramètre l'id que je veux
+ public function showArticle($id) {
 
      //appelle de la méthode createFromGlobals
      //cette méthode permet d'initialiser notre variable ($request dans ce cas)
      //avec toutes les données de requête donc GET, POST, SESSION, etc
-     $request = Request::createFromGlobals();
+     //$request = Request::createFromGlobals();
      //utilisation de la propriété query qui permet de récupérer les données GET
-     $id = $request->query->get('id');
+     //$id = $request->query->get('id');
 
      $articles = [
          [
@@ -98,7 +104,7 @@ class articleController extends AbstractController
      $articleFound = null;
 
      //je boucle sur les articles jusqu'à tomber sur l'id que je lui ai demandé
-     // si il trouve il stock dans la variable qui est null, l'article en question
+     // si il trouve il la stock dans la variable qui est null, l'article en question
      foreach ($articles as $article) {
          if ($article['id'] === (int)$id) {
              $articleFound = $article;

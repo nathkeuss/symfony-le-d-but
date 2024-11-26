@@ -51,6 +51,7 @@ div {
 
 div:hover {
     transform: translateX(100%);
+    filter: brightness(5) saturate(5);
 }
 
 img {

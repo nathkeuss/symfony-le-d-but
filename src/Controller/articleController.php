@@ -123,6 +123,18 @@ class articleController extends AbstractController
      ]);
  }
 
+ #[Route('/articles/search-results', name: 'article_search_results')]
+ //plutôt qu'instancier la class Request manuellement, j'utilise le système d'instanciation
+ //automatique de symfony, je lui passe en paramètre de méthode le type de la classe voulue
+ //suivie d'une variable dans laquelle je veux que symfony stocke l'instance de la classe
+ public function articleSearchResults(Request $request)
+ {
+     $search = $request->query->get('search');
+     return $this->render('article_search_results.html.twig',[
+         'search' => $search
+     ]);
+ }
+
 
 
 }

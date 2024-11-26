@@ -11,8 +11,8 @@ class ErrorController extends AbstractController
     #[Route('/error', name: 'error')]
     public function notFound(): Response
     {
-        $view = $this->renderView('error.html.twig');
-        return new Response($view, 404);
+        $view = $this->renderView('error.html.twig'); // génère le contenu html
+        return new Response($view, 404); // crée une réponse HTTP
     }
 
 }

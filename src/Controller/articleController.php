@@ -121,6 +121,10 @@ class articleController extends AbstractController
          }
      }
 
+     if (!$articleFound) { // si article = null
+         return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)
+     }
+
      // la méthode render de la classe AbtractController
      // récupère le fichier twig passé en paramètre
      // dans le dossier template

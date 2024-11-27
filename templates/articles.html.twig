@@ -10,7 +10,7 @@
     {% for article in articles %}
         <h1>{{ article.title }}</h1> <!-- je mets mon titre d'article -->
         <p>{{ article.content }}</p>
-        <div>
+        <div class="container">
             <img src="{{ article.image }}" alt="">
         </div>
         <a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a> <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->

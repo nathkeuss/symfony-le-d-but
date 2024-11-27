@@ -70,7 +70,7 @@ p {
     font-size: 2rem;
 }
 
-div {
+.container {
     border: solid 5px black;
     border: 4mm ridge black;
     width: 50%;
@@ -78,7 +78,7 @@ div {
     background-color: darkblue;
 }
 
-div:hover {
+.container:hover {
     transform: translateX(100%);
     filter: brightness(5) saturate(5);
 }
@@ -89,7 +89,14 @@ img {
 }
 
 /* Style du formulaire */
+#contact {
+    margin-top: 20px;
+}
 
+#messageSend {
+    margin-top: 20px;
+
+}
 /* Champ de saisie */
 form input[type="text"] {
     flex: 1;

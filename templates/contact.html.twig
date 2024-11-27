@@ -8,13 +8,13 @@
 {% block main %}
 
     {% if messageSend %}
-    <p>{{ messageSend }}</p>
+    <p id="messageSend">{{ messageSend }}</p>
     {% endif %}
 
-    <form action="" method="POST">
+    <form id="contact" action="" method="POST">
         <label for="name">Votre nom</label>
         <input type="text" name="name" placeholder="Entrez votre nom">
-        <label for="message"></label>
+        <label for="message">Message</label>
         <input type="text" name="message" placeholder="Votre message">
 
         <button type="submit">Envoyer</button>

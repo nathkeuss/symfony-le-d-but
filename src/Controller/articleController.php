@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,41 +12,14 @@ class articleController extends AbstractController
 {
  #[Route('/articles', name: 'articles_list')]
 
- public function articles(): Response {
+ //classe ArticleRepository est générée autmatiquement lors
+ // de la génération de l'entité Article
+ //elle contient plusieurs méthode pour faire des requêtes de type SELECT
+ //sur la table article, j'utilise l'autowire pour instancier cette classe
+ public function articles(ArticleRepository $articleRepository): Response {
 
-     $articles = [
-         [
-             'id' => 1,
-             'title' => 'Article 1',
-             'content' => 'cr7 siuu',
-             'image' => 'https://www.gamechampions.com/media/hhafyrmd/the-ronaldo-siuu-celebration-in-ea-fc-fifa.webp',
-         ],
-         [
-             'id' => 2,
-             'title' => 'Article 2',
-             'content' => 'cristiano ronaldo',
-             'image' => 'https://media4.giphy.com/media/hryis7A55UXZNCUTNA/200w.gif?cid=6c09b952qfhtvyxcwarzi2lz9kv81vozr19sviizrewu4rui&ep=v1_gifs_search&rid=200w.gif&ct=g',
-         ],
-         [
-             'id' => 3,
-             'title' => 'Article 3',
-             'content' => 'cristiano',
-             'image' => 'https://cdn-www.konbini.com/files/2018/11/afp-cristiano-ronaldo-juventus-e1548255667175.jpg?width=3840&quality=75&format=webp',
-         ],
-         [
-             'id' => 4,
-             'title' => 'Article 4',
-             'content' => 'ronaldo',
-             'image' => 'https://media.baamboozle.com/uploads/images/38404/1634143284_350112_gif-url.gif',
-         ],
-         [
-             'id' => 5,
-             'title' => 'Article 5',
-             'content' => 'siuuuu',
-             'image' => 'https://media.tenor.com/NPFbJouWeHQAAAAe/cr7-siuu.png',
-         ]
-
-     ];
+    // méthode findAll du repo, récupère tous les article de la table Article
+    $articles = $articleRepository->findAll();
 
      return $this->render('articles.html.twig',[
          'articles' => $articles ]);
@@ -61,9 +35,12 @@ class articleController extends AbstractController
  #[Route('/article/{id}', 'article_show', ['id' => '\d+'])]
 
  // je mets en paramètre la variable correspondant à ma route
- public function showArticle(int $id): Response
+ public function showArticle(int $id, ArticleRepository $articleRepository): Response
  {
+     // méthode find($id) du repo, récupère les articles suivant leur id
+     $articleFound = $articleRepository->find($id);
 
+     //--------------------------------------------------------------------------//
      //appelle de la méthode createFromGlobals
      //cette méthode permet d'initialiser notre variable ($request dans ce cas)
      //avec toutes les données de requête donc GET, POST, SESSION, etc
@@ -71,55 +48,18 @@ class articleController extends AbstractController
      //utilisation de la propriété query qui permet de récupérer les données GET
      //$id = $request->query->get('id');
 
-     $articles = [
-         [
-             'id' => 1,
-             'title' => 'Article 1',
-             'content' => 'cr7 siuu',
-             'image' => 'https://www.gamechampions.com/media/hhafyrmd/the-ronaldo-siuu-celebration-in-ea-fc-fifa.webp',
-             'createdAt' => new \DateTime('2030-01-01 00:00:00')
-             ],
-         [
-             'id' => 2,
-             'title' => 'Article 2',
-             'content' => 'cristiano ronaldo',
-             'image' => 'https://media4.giphy.com/media/hryis7A55UXZNCUTNA/200w.gif?cid=6c09b952qfhtvyxcwarzi2lz9kv81vozr19sviizrewu4rui&ep=v1_gifs_search&rid=200w.gif&ct=g',
-             'createdAt' => new \DateTime('2030-01-01 00:00:00')
-             ],
-         [
-             'id' => 3,
-             'title' => 'Article 3',
-             'content' => 'cristiano',
-             'image' => 'https://cdn-www.konbini.com/files/2018/11/afp-cristiano-ronaldo-juventus-e1548255667175.jpg?width=3840&quality=75&format=webp',
-             'createdAt' => new \DateTime('2030-01-01 00:00:00')
-             ],
-         [
-             'id' => 4,
-             'title' => 'Article 4',
-             'content' => 'ronaldo',
-             'image' => 'https://media.baamboozle.com/uploads/images/38404/1634143284_350112_gif-url.gif',
-             'createdAt' => new \DateTime('2030-01-01 00:00:00')
-             ],
-         [
-             'id' => 5,
-             'title' => 'Article 5',
-             'content' => 'siuuuu',
-             'image' => 'https://media.tenor.com/NPFbJouWeHQAAAAe/cr7-siuu.png',
-             'createdAt' => new \DateTime('2030-01-01 00:00:00')
-         ]
 
-     ];
-
-//variable pour contenir mon article
-     $articleFound = null;
+    //variable pour contenir mon article
+    // $articleFound = null;
 
      //je boucle sur les articles jusqu'à tomber sur l'id que je lui ai demandé
      // si il trouve il la stock dans la variable qui est null, l'article en question
-     foreach ($articles as $article) {
-         if ($article['id'] === $id) {
-             $articleFound = $article;
-         }
-     }
+     //foreach ($articles as $article) {
+     //    if ($article['id'] === $id) {
+     //        $articleFound = $article;
+     //    }
+     //}
+     //--------------------------------------------------------------------------//
 
      if (!$articleFound) { // si article = null
          return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)

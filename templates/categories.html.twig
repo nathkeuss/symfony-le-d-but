@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Catégorie : {{ category.title }}
+{% endblock metatitle %}
+
+{% block main %}
+    <h1>{{ category.title }}</h1>
+    <p>{{ category.color }}</p>
+{% endblock main %}

@@ -89,42 +89,6 @@ img {
 }
 
 /* Style du formulaire */
-form {
-    width: 30%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 20px 30px;
-    background: linear-gradient(145deg, #232323, #1a1a1a); /* Effet de relief */
-    border-radius: 15px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8), -5px -5px 15px rgba(255, 255, 255, 0.1);
-    animation: pulse 2s infinite; /* Animation de respiration subtile */
-}
-
-/* Animation pour un effet vivant */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Champ de saisie */
-form {
-    display: flex;
-    gap: 10px;
-    padding: 15px 20px;
-    background: linear-gradient(145deg, #0d1321, #007f5f); /* Dégradé sombre et terrain */
-    border: 3px solid #ffffff; /* Bordures blanches comme les lignes du terrain */
-    border-radius: 20px; /* Coins arrondis */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Ombre pour effet dynamique */
-}
 
 /* Champ de saisie */
 form input[type="text"] {

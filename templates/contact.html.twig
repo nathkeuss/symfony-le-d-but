@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block metatitle %}
+    Contact | CR7
+{% endblock metatitle %}
+
+
+{% block main %}
+
+    {% if messageSend %}
+    <p>{{ messageSend }}</p>
+    {% endif %}
+
+    <form action="" method="POST">
+        <label for="name">Votre nom</label>
+        <input type="text" name="name" placeholder="Entrez votre nom">
+        <label for="message"></label>
+        <input type="text" name="message" placeholder="Votre message">
+
+        <button type="submit">Envoyer</button>
+
+
+    </form>
+
+{% endblock main %}
+

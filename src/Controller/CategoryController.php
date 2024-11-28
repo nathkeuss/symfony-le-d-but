@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,11 +14,11 @@ class CategoryController extends AbstractController
     //route pour afficher la liste des catégories via /categories
     #[Route('/categories', name: 'categories')]
     // le CategoryRepository est une classe générée par doctrine pour
-    // gérer les requêtes sur la table Category. L'instance $categoryRepository
-    // permet d'accéder aux méthodes comme find()
+        // gérer les requêtes sur la table Category. L'instance $categoryRepository
+        // permet d'accéder aux méthodes comme find()
     public function categories(CategoryRepository $categoryRepository): Response
     {
-    // méthode findAll du repo, récupère toutes les catégories de la table Category
+        // méthode findAll du repo, récupère toutes les catégories de la table Category
         $categories = $categoryRepository->findAll();
 
         return $this->render('categories.html.twig',
@@ -24,7 +26,7 @@ class CategoryController extends AbstractController
         // rend le fichier twig en lui passant les catégories récupérées
     }
 
-    #[Route('/category/{id}', name: 'category_show')]
+    #[Route('/category/{id}', name: 'category_show', requirements: ['id' => '\d+'])]
     //route pour afficher la catégorie je lui ai demandé suivant son id, via /category/id
     public function showCategory(int $id, CategoryRepository $categoryRepository): Response
     {
@@ -37,6 +39,22 @@ class CategoryController extends AbstractController
         return $this->render('category_show.html.twig',
             ['category' => $categoryFound]);
         // rend le fichier twig en lui passant la catégorie récupérée
+
+    }
+
+    #[Route('/category/create', name: 'category_create')]
+    public function createCategory(EntityManagerInterface $entityManager): Response
+    {
+        $category = new Category();
+
+        $category->setTitle('GAMIIING');
+        $category->setColor('red');
+
+        $entityManager->persist($category);
+        $entityManager->flush();
+
+        return new Response('c ok');
+
 
     }
 

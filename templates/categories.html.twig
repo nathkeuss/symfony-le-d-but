@@ -5,11 +5,14 @@
 {% endblock metatitle %}
 
 {% block main %}
-    <h1>Liste des catégories</h1>
-    {% for category in categories %}
-        <h2>{{ category.title }}</h2>
-        <p>{{ category.color }}</p>
-        <a href="{{ path("category_show", {id: category.id}) }}">voir tout</a>
-    {% endfor %}
+
+        <h1>Liste des catégories</h1>
+        {% for category in categories %}
+            <section style="background-color: {{ category.color }};">
+                <h2>{{ category.title }}</h2>
+                <a href="{{ path('category_show', {id: category.id}) }}">voir tout</a>
+            </section>
+        {% endfor %}
+
 {% endblock main %}
 

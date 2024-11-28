@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,6 +94,27 @@ class articleController extends AbstractController
      return $this->render('article_search_results.html.twig',[
          'search' => $search
      ]);
+ }
+
+#[Route('/article/create', name: 'article_create')]
+ //entitymanager permet
+ public function createArticle(EntityManagerInterface $entityManager): Response
+ {
+     //création instance de l'entité article
+     $article = new Article();
+
+     //j'utilise les méthodes setX pour remplir les propriétés
+     $article->setTitle('bg');
+     $article->setContent("t'es bg");
+     $article->setCreatedAt(new \DateTime('now'));
+     $article->setImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT07W2KZlaxx-4ng3KBQnkRwcD0YBZw5hno1Q&s');
+
+     //préparations de l'enregistrement (le commit de github)
+     $entityManager->persist($article);
+     //exécute les opérations dans la bdd (le push de github)
+     $entityManager->flush();
+
+    return new Response("c'est ok");
  }
 
 

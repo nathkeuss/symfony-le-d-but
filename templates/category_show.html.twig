@@ -1,13 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block metatitle %}
-    Catégories | CR7
+  {{ category.title }}
 {% endblock metatitle %}
 
 {% block main %}
-    <h1>Liste des catégories</h1>
-    {% for category in categories %}
-        <h2>{{ category.title }}</h2>
-        <p>{{ category.color }}</p>
-    {% endfor %}
+    <h1>{{ category.title }}</h1>
+    <p>{{ category.color }}</p>
 {% endblock main %}

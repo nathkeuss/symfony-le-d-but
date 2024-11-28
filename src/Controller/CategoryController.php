@@ -19,12 +19,12 @@ class CategoryController extends AbstractController
     // méthode findAll du repo, récupère toutes les catégories de la table Category
         $categories = $categoryRepository->findAll();
 
-        return $this->render('category_show.html.twig',
+        return $this->render('categories.html.twig',
             ['categories' => $categories]);
         // rend le fichier twig en lui passant les catégories récupérées
     }
 
-    #[Route('/category/{id}', name: 'categories_show')]
+    #[Route('/category/{id}', name: 'category_show')]
     //route pour afficher la catégorie je lui ai demandé suivant son id, via /category/id
     public function showCategory(int $id, CategoryRepository $categoryRepository): Response
     {
@@ -34,7 +34,7 @@ class CategoryController extends AbstractController
         if (!$categoryFound) { // si category = null
             return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)
         }
-        return $this->render('categories.html.twig',
+        return $this->render('category_show.html.twig',
             ['category' => $categoryFound]);
         // rend le fichier twig en lui passant la catégorie récupérée
 

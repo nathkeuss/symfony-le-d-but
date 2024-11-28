@@ -91,25 +91,39 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/article/create', name: 'article_create', requirements: ['id' => '\d+'])]
+    #[Route('/article/create', name: 'article_create')]
     //entitymanager permet de save/delete des entités en bdd
-    public function createArticle(EntityManagerInterface $entityManager): Response
+    public function createArticle(EntityManagerInterface $entityManager, Request $request): Response
     {
         //création instance de l'entité article
-        $article = new Article();
+
+
+        if ($request->isMethod('POST')) {
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+            $image = $request->request->get('image');
+
+            $article = new Article();
+
+            $article->setTitle($title);
+            $article->setContent($content);
+            $article->setImage($image);
+            $article->setCreatedAt(new \DateTime());
+
+            //préparations de l'enregistrement (le commit de github)
+            $entityManager->persist($article);
+            //exécute les opérations dans la bdd (le push de github)
+            $entityManager->flush();
+
+            return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
+        }
 
         //j'utilise les méthodes setX pour remplir les propriétés
-        $article->setTitle('bg');
-        $article->setContent("t'es bg");
-        $article->setCreatedAt(new \DateTime('now'));
-        $article->setImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT07W2KZlaxx-4ng3KBQnkRwcD0YBZw5hno1Q&s');
 
-        //préparations de l'enregistrement (le commit de github)
-        $entityManager->persist($article);
-        //exécute les opérations dans la bdd (le push de github)
-        $entityManager->flush();
-
-        return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
+        //$article->setTitle('bg');
+        //$article->setContent("t'es bg");
+        //$article->setCreatedAt(new \DateTime('now'));
+    return $this->render('article_create_form.html.twig');
     }
 
 

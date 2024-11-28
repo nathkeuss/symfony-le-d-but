@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
         // persist permet de pre-sauvegarder mes entités
         // flush execute la requête SQL dans ma BDD
         // pour créer un enregistrement d'article dans la table
-        return $this->redirectToRoute('categories');
+        return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
 
 
     }

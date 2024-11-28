@@ -114,7 +114,7 @@ class articleController extends AbstractController
      //exécute les opérations dans la bdd (le push de github)
      $entityManager->flush();
 
-    return new Response("c'est ok");
+     return $this->redirectToRoute('articles_list');
  }
 
 

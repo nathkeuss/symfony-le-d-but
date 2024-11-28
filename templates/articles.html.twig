@@ -13,7 +13,10 @@
         <div class="container">
             <img src="{{ article.image }}" alt="">
         </div>
-        <a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a> <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
+        <ul>
+        <li><a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a></li> <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
+        <li><a class="delete" href="{{ path("article_delete", {id: article.id}) }}">supprimer</a></li>
+        </ul>
     {% endfor %}
 
 {% endblock main %}

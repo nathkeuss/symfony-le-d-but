@@ -221,3 +221,8 @@ h2::after {
     }
 }
 
+
+.delete {
+    color: red;
+}
+

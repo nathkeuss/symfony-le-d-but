@@ -81,11 +81,16 @@ class CategoryController extends AbstractController
     public function deleteCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
     {
         //dd('yo');
+        // je récupère la catégorie que je veux supprimer
+        // le repository fait la requête SQL et reconstruit une instance de la classe Category
+        // je dois récupérer une instance de classe car pour la suppression Doctrine a besoin d'une instance de classe
         $category = $categoryRepository->find($id);
 
         if (!$category) {
             return $this->redirectToRoute('error');
         }
+
+        // j'utilise la méthode remove de l'entity manager pour supprimer l'article
         $entityManager->remove($category);
         $entityManager->flush();
         return $this->redirectToRoute('categories');

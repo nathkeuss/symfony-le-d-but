@@ -114,7 +114,29 @@ class articleController extends AbstractController
      //exécute les opérations dans la bdd (le push de github)
      $entityManager->flush();
 
+     return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
+ }
+
+
+#[Route('/article/delete/{id}', name: 'article_delete', requirements: ['id' => '\d+'])]
+ public function deleteArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository): Response
+ {
+     //dd('salut');
+     //je récupe l'article que je veux supprimer via l'id de l'url article/delete/{id}
+     $article = $articleRepository->find($id);
+
+     //si l'article existe pas/plus, il redirige vers la plage d'erreur
+     if(!$article) {
+         return $this->redirectToRoute('error');
+     }
+
+     //utilisation de la méthode remove de l'entitymanager pour delete l'article
+     $entityManager->remove($article);
+     $entityManager->flush();
+
+     //redirige vers la liste d'articles (sans celui que j'ai supprimé du coup)
      return $this->redirectToRoute('articles_list');
+
  }
 
 

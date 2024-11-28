@@ -96,7 +96,7 @@ class articleController extends AbstractController
      ]);
  }
 
-#[Route('/article/create', name: 'article_create')]
+#[Route('/article/create', name: 'article_create',  requirements: ['id' => '\d+'])]
  //entitymanager permet de save/delete des entités en bdd
  public function createArticle(EntityManagerInterface $entityManager): Response
  {

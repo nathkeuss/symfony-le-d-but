@@ -45,15 +45,34 @@ class CategoryController extends AbstractController
     #[Route('/category/create', name: 'category_create')]
     public function createCategory(EntityManagerInterface $entityManager): Response
     {
+
+        // je créé une instance de l'entité Category
+        // car c'est elle qui représente les catégories dans mon application
         $category = new Category();
 
-        $category->setTitle('GAMIIING');
-        $category->setColor('red');
+        // j'utilise les méthodes set pour remplir
+        // les propriétés de mon article
+        $category->setTitle('film');
+        $category->setColor('orange');
 
+        // à ce moment, la variable $article
+        // contient une instance de la classe Article avec
+        // les données voulues(sauf l'id car il sera généré par la BDD)
+
+        // j'utilise l'instance de la classe
+        // EntityManager. C'est cette classe qui me permet de sauver / supprimer
+        // des entités en BDD
+        // L'entity manager et Doctrine savent que l'entité correspond à la table article
+        // et que la propriété title correspond à la colonne title grâce aux annotations
+        // donc L'entity manager sait comment faire correspondre mon instance d'entité à un
+        // enregistrement dans la table
         $entityManager->persist($category);
         $entityManager->flush();
 
-        return new Response('c ok');
+        // persist permet de pre-sauvegarder mes entités
+        // flush execute la requête SQL dans ma BDD
+        // pour créer un enregistrement d'article dans la table
+        return $this->redirectToRoute('categories');
 
 
     }

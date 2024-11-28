@@ -14,8 +14,10 @@
             <img src="{{ article.image }}" alt="">
         </div>
         <ul>
-        <li><a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a></li> <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
-        <li><a class="delete" href="{{ path("article_delete", {id: article.id}) }}">supprimer</a></li>
+            <li><a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a></li>
+            <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
+            <li><a class="delete" href="{{ path("article_delete", {id: article.id}) }}">supprimer</a></li>
+            <li><a class="update" href="{{ path("article_update", {id: article.id}) }}">modifier</a></li>
         </ul>
     {% endfor %}
 

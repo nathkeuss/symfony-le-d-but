@@ -7,16 +7,17 @@
 {% block main %}
 
     <section class="category"></section>
-        <h1>Liste des catégories</h1>
-        {% for category in categories %}
-            <section style="background-color: {{ category.color }};">
-                <h2>{{ category.title }}</h2>
-                <ul>
+    <h1>Liste des catégories</h1>
+    {% for category in categories %}
+        <section style="background-color: {{ category.color }};">
+            <h2>{{ category.title }}</h2>
+            <ul>
                 <li><a href="{{ path('category_show', {id: category.id}) }}">voir tout</a></li>
                 <li><a class="delete" href="{{ path('category_delete', {id: category.id}) }}">supprimer</a></li>
-                </ul>
-            </section>
-        {% endfor %}
+                <li><a class="update" href="{{ path('category_update', {id: category.id}) }}">modifier</a></li>
+            </ul>
+        </section>
+    {% endfor %}
 
 {% endblock main %}
 

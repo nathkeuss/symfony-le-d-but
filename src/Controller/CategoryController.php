@@ -96,4 +96,21 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('categories');
     }
 
+    #[Route('/category/update/{id}', name: 'category_update', requirements: ['id' => '\d+'])]
+    public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    {
+        $category = $categoryRepository->find($id);
+
+        if (!$category) {
+            return $this->redirectToRoute('error');
+        }
+        $category->setTitle('ordinateur');
+        $category->setColor('pink');
+
+        $entityManager->persist($category);
+        $entityManager->flush();
+        return $this->redirectToRoute('categories');
+
+    }
+
 }

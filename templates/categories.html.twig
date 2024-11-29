@@ -7,6 +7,7 @@
 {% block main %}
 
     <section class="category"></section>
+    <a href="{{ path('category_create') }}">Créer une catégorie</a>
     <h1>Liste des catégories</h1>
     {% for category in categories %}
         <section style="background-color: {{ category.color }};">

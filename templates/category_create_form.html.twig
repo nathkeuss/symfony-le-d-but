@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}Créer une catégorie{% endblock metatitle %}
+
+{% block main %}
+
+    <form method="POST">
+
+        <label for="title">Nom de la catégorie</label>
+        <input type="text" name="title" placeholder="Entrez le nom de la catégorie">
+
+        <label for="content">Couleur de la catégorie</label>
+        <input type="text" name="color" placeholder="Entrez la couleur de la catégorie">
+
+
+        <button type="submit">Envoyer</button>
+
+    </form>
+
+{% endblock main %}

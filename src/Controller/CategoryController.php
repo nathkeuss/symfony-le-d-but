@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -43,17 +44,40 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/category/create', name: 'category_create')]
-    public function createCategory(EntityManagerInterface $entityManager): Response
+    public function createCategory(EntityManagerInterface $entityManager, Request $request): Response
     {
+        //vérifie si la requête est post
+        if ($request->isMethod('POST')) {
+            // récupère les données envoyées par le formulaire
+            $title = $request->request->get('title');
+            $color = $request->request->get('color');
+
+            //crée une nouvelle instance de l'entité Category
+            $category = new Category();
+
+            //rempli les propriétés avec les données récupérées
+            $category->setTitle($title);
+            $category->setColor($color);
+
+            //pré sauvegarde mes entités
+            $entityManager->persist($category);
+            //execute la requête sql dans la bdd
+            $entityManager->flush();
+
+            return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        }
+
+        return $this->render('category_create_form.html.twig');
+
 
         // je créé une instance de l'entité Category
         // car c'est elle qui représente les catégories dans mon application
-        $category = new Category();
+        //$category = new Category();
 
         // j'utilise les méthodes set pour remplir
         // les propriétés de mon article
-        $category->setTitle('film');
-        $category->setColor('orange');
+        //$category->setTitle('film');
+        //$category->setColor('orange');
 
         // à ce moment, la variable $article
         // contient une instance de la classe Article avec
@@ -66,13 +90,13 @@ class CategoryController extends AbstractController
         // et que la propriété title correspond à la colonne title grâce aux annotations
         // donc L'entity manager sait comment faire correspondre mon instance d'entité à un
         // enregistrement dans la table
-        $entityManager->persist($category);
-        $entityManager->flush();
+        //$entityManager->persist($category);
+        //$entityManager->flush();
 
         // persist permet de pre-sauvegarder mes entités
         // flush execute la requête SQL dans ma BDD
         // pour créer un enregistrement d'article dans la table
-        return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        //return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
 
 
     }

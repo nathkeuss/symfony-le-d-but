@@ -123,7 +123,7 @@ class ArticleController extends AbstractController
         //$article->setTitle('bg');
         //$article->setContent("t'es bg");
         //$article->setCreatedAt(new \DateTime('now'));
-    return $this->render('article_create_form.html.twig');
+        return $this->render('article_create_form.html.twig');
     }
 
 

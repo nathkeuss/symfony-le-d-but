@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,28 +47,52 @@ class CategoryController extends AbstractController
     #[Route('/category/create', name: 'category_create')]
     public function createCategory(EntityManagerInterface $entityManager, Request $request): Response
     {
-        //vérifie si la requête est post
-        if ($request->isMethod('POST')) {
-            // récupère les données envoyées par le formulaire
-            $title = $request->request->get('title');
-            $color = $request->request->get('color');
 
-            //crée une nouvelle instance de l'entité Category
-            $category = new Category();
+        //j'instancie mon entité article pour en créer un nouveau
+        $category = new Category();
+
+        // créer un formulaire basé sur mon Article
+        //la classe articletype définit les champs du form
+        //le formulaire est lié à $article pour ques les valeurs saisies soient associées
+        $form = $this->createForm(CategoryType::class, $category);
+
+        //symfony récupère les données que j'ai entré dans la requête
+        $form->handleRequest($request);
+
+        //si le form est submit, il enregistre dans la bdd
+        if ($form->isSubmitted()) {
+            $entityManager->persist($category);
+            $entityManager->flush();
+        }
+        //crée une vue du formulaire
+        $formView = $form->createView();
+
+        return $this->render('category_create_form.html.twig',
+            ['formView' => $formView]);
+
+
+        //vérifie si la requête est post
+        //if ($request->isMethod('POST')) {
+        // //   // récupère les données envoyées par le formulaire
+         //   $title = $request->request->get('title');
+        //    $color = $request->request->get('color');
+
+        //    //crée une nouvelle instance de l'entité Category
+        //    $category = new Category();
 
             //rempli les propriétés avec les données récupérées
-            $category->setTitle($title);
-            $category->setColor($color);
+        //    $category->setTitle($title);
+        //    $category->setColor($color);
 
             //pré sauvegarde mes entités
-            $entityManager->persist($category);
+         //   $entityManager->persist($category);
             //execute la requête sql dans la bdd
-            $entityManager->flush();
+         //   $entityManager->flush();
 
-            return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
-        }
+          //  return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        //}
 
-        return $this->render('category_create_form.html.twig');
+        //return $this->render('category_create_form.html.twig');
 
 
         // je créé une instance de l'entité Category

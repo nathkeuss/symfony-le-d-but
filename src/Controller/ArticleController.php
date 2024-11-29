@@ -105,6 +105,14 @@ class ArticleController extends AbstractController
         //le formulaire est lié à $article pour ques les valeurs saisies soient associées
         $form = $this->createForm(ArticleType::class, $article);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $article->setCreatedAt(new \DateTime());
+            $entityManager->persist($article);
+            $entityManager->flush();
+        }
+
         //crée une vue du formulaire
         $formView = $form->createView();
 

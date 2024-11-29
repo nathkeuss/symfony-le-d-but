@@ -48,11 +48,11 @@ class CategoryController extends AbstractController
     public function createCategory(EntityManagerInterface $entityManager, Request $request): Response
     {
 
-        //j'instancie mon entité article pour en créer un nouveau
+        //j'instancie mon entité category pour en créer un nouveau
         $category = new Category();
 
-        // créer un formulaire basé sur mon Article
-        //la classe articletype définit les champs du form
+        // créer un formulaire basé sur ma Category
+        //la classe categorytype définit les champs du form
         //le formulaire est lié à $article pour ques les valeurs saisies soient associées
         $form = $this->createForm(CategoryType::class, $category);
 

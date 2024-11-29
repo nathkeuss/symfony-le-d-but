@@ -74,22 +74,22 @@ class CategoryController extends AbstractController
         //vérifie si la requête est post
         //if ($request->isMethod('POST')) {
         // //   // récupère les données envoyées par le formulaire
-         //   $title = $request->request->get('title');
+        //   $title = $request->request->get('title');
         //    $color = $request->request->get('color');
 
         //    //crée une nouvelle instance de l'entité Category
         //    $category = new Category();
 
-            //rempli les propriétés avec les données récupérées
+        //rempli les propriétés avec les données récupérées
         //    $category->setTitle($title);
         //    $category->setColor($color);
 
-            //pré sauvegarde mes entités
-         //   $entityManager->persist($category);
-            //execute la requête sql dans la bdd
-         //   $entityManager->flush();
+        //pré sauvegarde mes entités
+        //   $entityManager->persist($category);
+        //execute la requête sql dans la bdd
+        //   $entityManager->flush();
 
-          //  return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        //  return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
         //}
 
         //return $this->render('category_create_form.html.twig');
@@ -149,34 +149,55 @@ class CategoryController extends AbstractController
     public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, Request $request): Response
     {
 
-        // je récupère en bdd la catégorie liéé à l'id de l'url
-        //doctrine créé une instance de Categorie avec les données de la catégorie
         $category = $categoryRepository->find($id);
 
-        //si c'est une requête post
-        if ($request->isMethod('POST')) {
-            // récupère les données envoyées par le formulaire
-            $title = $request->request->get('title');
-            $color = $request->request->get('color');
+        $form = $this->createForm(CategoryType::class, $category);
 
-            //modifie les propriétés avec les données récupérées
-            $category->setTitle($title);
-            $category->setColor($color);
+        $form->handleRequest($request);
 
-            //maj de la caté en bdd
+
+        if ($form->isSubmitted()) {;
             $entityManager->persist($category);
             $entityManager->flush();
-
-            return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
         }
+
+        //crée une vue du formulaire
+        $formView = $form->createView();
+
+        return $this->render('category_update.html.twig',
+            ['formView' => $formView,
+                'category' => $category
+            ]);
+
+    }
+        // je récupère en bdd la catégorie liéé à l'id de l'url
+        //doctrine créé une instance de Categorie avec les données de la catégorie
+        //$category = $categoryRepository->find($id);
+
+        //si c'est une requête post
+        //if ($request->isMethod('POST')) {
+        // récupère les données envoyées par le formulaire
+        //    $title = $request->request->get('title');
+        //    $color = $request->request->get('color');
+
+        //modifie les propriétés avec les données récupérées
+        //    $category->setTitle($title);
+        //    $category->setColor($color);
+
+        //maj de la caté en bdd
+        //   $entityManager->persist($category);
+        //   $entityManager->flush();
+
+        //    return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        //}
 
 
         // j'envoie au formulaire twig
         // la catégorie existant en BDD
         // pour préremplir les champs
-        return $this->render('category_update.html.twig', [
-            'category' => $category]);
+        //return $this->render('category_update.html.twig', [
+        //     'category' => $category]);
+
+        //}
 
     }
-
-}

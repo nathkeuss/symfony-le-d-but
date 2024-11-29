@@ -4,10 +4,10 @@
 
 {% block main %}
 
-    <form method="POST">
+    <!--<form method="POST">
 
         <label for="title">Titre de l'article</label>
-        <input type="text" name="title" value="{{ category.title }}"> <!--value pour préremplir les champs avec category.title déjà existant -->
+        <input type="text" name="title" value="{{ category.title }}">value pour préremplir les champs avec category.title déjà existant
 
         <label for="content">Contenu de l'article</label>
         <input type="color" name="color" value="{{ category.color }}">
@@ -15,7 +15,9 @@
 
         <button type="submit">Envoyer</button>
 
-    </form>
+    </form>-->
+
+    {{ form(formView) }}
 
 
 {% endblock main %}

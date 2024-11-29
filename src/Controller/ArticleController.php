@@ -185,36 +185,62 @@ class ArticleController extends AbstractController
     {
         //dd('salu'); je vérifie ma route là
 
-        //récupère en bdd les valeurs des propriétés par rapport à l'id
+
         $article = $articleRepository->find($id);
 
-        //si c'est post
-        if ($request->isMethod('POST')) {
-            //récupe les données envoyées via le formulaire
-            $title = $request->request->get('title');
-            $content = $request->request->get('content');
-            $image = $request->request->get('image');
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
 
 
-            //modifie les données avec les valeurs du formulaire
-            $article->setTitle($title);
-            $article->setContent($content);
-            $article->setImage($image);
-
-            //maj des valeurs en bdd
+        if ($form->isSubmitted()) {
+            ;
             $entityManager->persist($article);
             $entityManager->flush();
-
-            return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
         }
 
-        //j'envoie au formulaire twig les valeurs déjà existantes en bdd, pour préremplir les champs
-        return $this->render('article_update.html.twig', [
-            'article' => $article
-        ]);
+        //crée une vue du formulaire
+        $formView = $form->createView();
 
+        return $this->render('article_update.html.twig',
+            ['formView' => $formView,
+                'article' => $article
+            ]);
 
     }
+
+
+
+    //récupère en bdd les valeurs des propriétés par rapport à l'id
+    //$article = $articleRepository->find($id);
+
+    //si c'est post
+    //if ($request->isMethod('POST')) {
+    //récupe les données envoyées via le formulaire
+    //    $title = $request->request->get('title');
+    //    $content = $request->request->get('content');
+    //    $image = $request->request->get('image');
+
+
+    //modifie les données avec les valeurs du formulaire
+    //   $article->setTitle($title);
+    //   $article->setContent($content);
+    //   $article->setImage($image);
+
+    //maj des valeurs en bdd
+    //   $entityManager->persist($article);
+    //   $entityManager->flush();
+
+    // return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
+    //}
+
+    //j'envoie au formulaire twig les valeurs déjà existantes en bdd, pour préremplir les champs
+    //return $this->render('article_update.html.twig', [
+    //    'article' => $article
+    //]);
+
+
+    //}
 
 
 }

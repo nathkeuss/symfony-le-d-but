@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    <form method="POST">
+    <!--<form method="POST">
 
         <label for="title">Titre de l'article</label>
         <input type="text" name="title" value="{{ article.title }}">
@@ -17,7 +17,9 @@
 
         <button type="submit">Envoyer</button>
 
-    </form>
+    </form>-->
+
+    {{ form(formView) }}
 
 
 {% endblock main %}

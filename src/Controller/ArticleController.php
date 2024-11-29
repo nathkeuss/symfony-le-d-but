@@ -149,28 +149,34 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/update/{id}', name: 'article_update', requirements: ['id' => '\d+'])]
-    public function updateArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository): Response
+    public function updateArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository, Request $request): Response
     {
         //dd('salu'); je vérifie ma route là
 
         //récupère l'article correspond à l'id dans l'url
         $article = $articleRepository->find($id);
 
-        // si l'article existe pas, redirige vers la page d'erreur
-        if (!$article) {
-            return $this->redirectToRoute('error');
+        if ($request->isMethod('POST')) {
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+            $image = $request->request->get('image');
+
+
+            $article->setTitle($title);
+            $article->setContent($content);
+            $article->setImage($image);
+
+            //préparations de l'enregistrement (le commit de github)
+            $entityManager->persist($article);
+            //exécute les opérations dans la bdd (le push de github)
+            $entityManager->flush();
+
+            return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
         }
 
-        //je modifie les valeurs de mes propriétés
-        $article->setTitle("bg max MAJ");
-        $article->setContent("trop bg MAJ");
-
-        // je re-sauvegarde l'article dans ma bdd, vu qu'il voit que l'id existe déjà
-        // il va juste modifier plutôt que créer
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('articles_list');
+        return $this->render('article_update.html.twig', [
+            'article' => $article
+        ]);
 
 
     }

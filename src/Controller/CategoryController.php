@@ -121,19 +121,28 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/category/update/{id}', name: 'category_update', requirements: ['id' => '\d+'])]
-    public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, Request $request): Response
     {
         $category = $categoryRepository->find($id);
 
-        if (!$category) {
-            return $this->redirectToRoute('error');
-        }
-        $category->setTitle('ordinateur');
-        $category->setColor('pink');
+        if ($request->isMethod('POST')) {
+            // récupère les données envoyées par le formulaire
+            $title = $request->request->get('title');
+            $color = $request->request->get('color');
 
-        $entityManager->persist($category);
-        $entityManager->flush();
-        return $this->redirectToRoute('categories');
+            //rempli les propriétés avec les données récupérées
+            $category->setTitle($title);
+            $category->setColor($color);
+
+            //pré sauvegarde mes entités
+            $entityManager->persist($category);
+            //execute la requête sql dans la bdd
+            $entityManager->flush();
+
+            return $this->redirectToRoute('categories'); // je redirige vers ma liste de catégories
+        }
+
+        return $this->render('category_create_form.html.twig');
 
     }
 

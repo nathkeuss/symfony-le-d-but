@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}Modifier l'article{% endblock metatitle %}
+
+{% block main %}
+
+    <form method="POST">
+
+        <label for="title">Titre de l'article</label>
+        <input type="text" name="title" value="{{ category.title }}">
+
+        <label for="content">Contenu de l'article</label>
+        <input type="text" name="color" value="{{ category.color }}">
+
+
+        <button type="submit">Envoyer</button>
+
+    </form>
+
+
+{% endblock main %}

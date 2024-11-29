@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,35 +96,47 @@ class ArticleController extends AbstractController
     //entitymanager permet de save/delete des entités en bdd
     public function createArticle(EntityManagerInterface $entityManager, Request $request): Response
     {
-        //création instance de l'entité article
+
+        //j'instancie mon entité article pour en créer un nouveau
+        $article = new Article();
+
+        // créer un formulaire basé sur mon Article
+        //la classe articletype définit les champs du form
+        //le formulaire est lié à $article pour ques les valeurs saisies soient associées
+        $form = $this->createForm(ArticleType::class, $article);
+
+        //crée une vue du formulaire
+        $formView = $form->createView();
+
+        return $this->render('article_create_form.html.twig',
+            ['formView' => $formView]);
 
 
-        if ($request->isMethod('POST')) {
-            $title = $request->request->get('title');
-            $content = $request->request->get('content');
-            $image = $request->request->get('image');
+        //if ($request->isMethod('POST')) {
+        //    $title = $request->request->get('title');
+        //    $content = $request->request->get('content');
+        //    $image = $request->request->get('image');
 
-            $article = new Article();
+        //    $article = new Article();
 
-            $article->setTitle($title);
-            $article->setContent($content);
-            $article->setImage($image);
-            $article->setCreatedAt(new \DateTime());
+        //    $article->setTitle($title);
+        //    $article->setContent($content);
+        //    $article->setImage($image);
+        //    $article->setCreatedAt(new \DateTime());
 
-            //préparations de l'enregistrement (le commit de github)
-            $entityManager->persist($article);
-            //exécute les opérations dans la bdd (le push de github)
-            $entityManager->flush();
+        //préparations de l'enregistrement (le commit de github)
+        //   $entityManager->persist($article);
+        //exécute les opérations dans la bdd (le push de github)
+        //   $entityManager->flush();
 
-            return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
-        }
+        //   return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
+        //}
 
         //j'utilise les méthodes setX pour remplir les propriétés
 
         //$article->setTitle('bg');
         //$article->setContent("t'es bg");
         //$article->setCreatedAt(new \DateTime('now'));
-        return $this->render('article_create_form.html.twig');
     }
 
 
@@ -153,27 +166,30 @@ class ArticleController extends AbstractController
     {
         //dd('salu'); je vérifie ma route là
 
-        //récupère l'article correspond à l'id dans l'url
+        //récupère en bdd les valeurs des propriétés par rapport à l'id
         $article = $articleRepository->find($id);
 
+        //si c'est post
         if ($request->isMethod('POST')) {
+            //récupe les données envoyées via le formulaire
             $title = $request->request->get('title');
             $content = $request->request->get('content');
             $image = $request->request->get('image');
 
 
+            //modifie les données avec les valeurs du formulaire
             $article->setTitle($title);
             $article->setContent($content);
             $article->setImage($image);
 
-            //préparations de l'enregistrement (le commit de github)
+            //maj des valeurs en bdd
             $entityManager->persist($article);
-            //exécute les opérations dans la bdd (le push de github)
             $entityManager->flush();
 
             return $this->redirectToRoute('articles_list');//redirige vers ma liste d'article
         }
 
+        //j'envoie au formulaire twig les valeurs déjà existantes en bdd, pour préremplir les champs
         return $this->render('article_update.html.twig', [
             'article' => $article
         ]);

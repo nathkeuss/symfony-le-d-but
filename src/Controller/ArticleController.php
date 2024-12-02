@@ -43,12 +43,16 @@ class ArticleController extends AbstractController
     {
         // méthode find($id) du repo, récupère les articles suivant leur id
         $articleFound = $articleRepository->find($id);
-        //ajouter commentaire
+
+        // j'instancie l'objet  Comment pour créer un nouveau commentaire
         $comment = new Comment();
+        // associe le commentaire à l'article
         $comment->setArticle($articleFound);
 
+        // crée un formulaire basé sur la classe CommentType, lié à l'objet Comment
         $form = $this->createForm(CommentType::class, $comment);
 
+        // traite les données soumises dans la requête et les associe au formulaire.
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -60,9 +64,15 @@ class ArticleController extends AbstractController
 
         $formView = $form->createView();
 
+        $comments = $articleFound->getComments()->toArray();
+        // récupère tous les commentaires associés à l'article et les convertit en tableau.
+        $comments = array_reverse($comments);
+        // inverse l'ordre des commentaires pour afficher les plus récents en premier.
+
         return $this->render('article_show.html.twig',
             ['formView' => $formView,
-            'articles' => $articleFound
+            'articles' => $articleFound,
+                'comments' => $comments,
         ]);
 
 

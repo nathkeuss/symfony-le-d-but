@@ -25,6 +25,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->orWhere('a.content LIKE :search')
             // Définit le paramètre ':search' avec des wildcards (%) pour une recherche partielle
             ->setParameter('search', '%'.$search.'%')
+            ->orderBy('c.id', 'DESC')
             // Finalise la requête SQL
             ->getQuery()
             // Exécute la requête et retourne les résultats sous forme d'un tableau d'entités Article

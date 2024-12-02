@@ -22,6 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->where('c.title LIKE :search')
             ->orWhere('c.color LIKE :search')
             ->setParameter('search', '%'.$search.'%')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult();
 

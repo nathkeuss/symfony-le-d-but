@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block metatitle %}
-{{  articles.title}} | CR7
+    {{ articles.title }} | CR7
 {% endblock metatitle %}
 
 
@@ -14,7 +14,20 @@
         <img src="{{ articles.image }}" alt="">
     </div>
 
+
+    <h1>Laisse un commentaire</h1>
     {{ form(formView) }}
+
+
+    <h2>Commentaires</h2>
+    <div>
+        {% for comment in comments %}
+            <div>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
 
 
 

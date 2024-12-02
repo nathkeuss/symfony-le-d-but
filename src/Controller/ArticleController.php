@@ -84,11 +84,19 @@ class ArticleController extends AbstractController
     //plutôt qu'instancier la class Request manuellement, j'utilise le système d'instanciation
         //automatique de symfony, je lui passe en paramètre de méthode le type de la classe voulue
         //suivie d'une variable dans laquelle je veux que symfony stocke l'instance de la classe
-    public function articleSearchResults(Request $request): Response
+    public function articleSearchResults(Request $request, ArticleRepository $articleRepository): Response
     {
+
+        //récupère la valeur du paramètre "search" depuis la requête
         $search = $request->query->get('search');
+
+        //appelle la méthode search de l'ArticleRepository pour trouver les articles correspondants
+        $articles = $articleRepository->search($search);
+
+        // rend la template twig avec la valeur de search, et le résultat des articles
         return $this->render('article_search_results.html.twig', [
-            'search' => $search
+            'search' => $search,
+            'articles' => $articles,
         ]);
     }
 

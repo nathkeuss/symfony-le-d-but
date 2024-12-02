@@ -1,11 +1,19 @@
 {% extends "base.html.twig" %}
 
 {% block metatitle %}
-    Résultats de recherche | CR7
+    Résultats de recherche article | CR7
 {% endblock metatitle %}
 
 {% block main %}
 
     <h2>Voici le résultat de la recherche "{{ search }}"</h2>
+
+    {% for article in articles %} <!-- boucle sur chaque article de la variable articles, sur title, content, et image -->
+        <h1>{{ article.title }}</h1> <!-- je mets mon titre d'article -->
+        <p>{{ article.content }}</p>
+        <div class="container">
+            <img src="{{ article.image }}" alt="">
+        </div>
+    {% endfor %}
 
 {% endblock main %}

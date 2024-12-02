@@ -28,6 +28,18 @@ class CategoryController extends AbstractController
         // rend le fichier twig en lui passant les catégories récupérées
     }
 
+    #[Route('/categories/search-results', name: 'category_search_results')]
+    public function categorySearchResults(Request $request, CategoryRepository $categoryRepository): Response {
+        $search = $request->get('search');
+
+        $categories = $categoryRepository->search($search);
+
+        return $this->render('category_search_results.html.twig', [
+            'search' => $search,
+            'categories' => $categories,
+        ]);
+    }
+
     #[Route('/category/{id}', name: 'category_show', requirements: ['id' => '\d+'])]
     //route pour afficher la catégorie je lui ai demandé suivant son id, via /category/id
     public function showCategory(int $id, CategoryRepository $categoryRepository): Response

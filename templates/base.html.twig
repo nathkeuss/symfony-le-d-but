@@ -22,9 +22,13 @@
     </nav>
 
     <form method="GET" action="{{ path('article_search_results') }}">
-        <input type="text" name="search">
+        <input type="text" name="search" placeholder="Rechercher un article">
         <button type="submit">Rechercher</button>
+    </form>
 
+    <form method="GET" action="{{ path('category_search_results') }}">
+        <input type="text" name="search" placeholder="Rechercher une catégorie">
+        <button type="button">Rechercher</button>
 
     </form>
 </header>

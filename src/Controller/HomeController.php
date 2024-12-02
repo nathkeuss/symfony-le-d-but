@@ -25,4 +25,6 @@ class HomeController extends AbstractController //méthode symfony
         return $this->render("home.html.twig"); // rend mon fichier dans templates
     }
 
+
+
 }

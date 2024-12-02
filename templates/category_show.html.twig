@@ -8,4 +8,19 @@
     <section style="background-color: {{ category.color }};">
         <h1>{{ category.title }}</h1>
     <section>
+
+    {% for article in articles %}
+        <h1>{{ article.title }}</h1> <!-- je mets mon titre d'article -->
+        <p>{{ article.content }}</p>
+        <div class="container">
+            <img src="{{ article.image }}" alt="">
+        </div>
+        <ul>
+            <li><a href="{{ path("article_show", {id: article.id}) }}">voir en entier</a></li>
+            <!-- lien qui m'amène sur l'article id en question et affichera dans l'url /Xid -->
+            <li><a class="delete" href="{{ path("article_delete", {id: article.id}) }}">supprimer</a></li> <!-- lien vers la suppresion d'article -->
+            <li><a class="update" href="{{ path("article_update", {id: article.id}) }}">modifier</a></li><!-- lien vers la modification d'article -->
+        </ul>
+    {% endfor %}
+
 {% endblock main %}

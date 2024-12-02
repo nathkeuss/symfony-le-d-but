@@ -45,13 +45,16 @@ class CategoryController extends AbstractController
     public function showCategory(int $id, CategoryRepository $categoryRepository): Response
     {
         // méthode find($id) du repo, récupère la catégorie suivant son id
-        $categoryFound = $categoryRepository->find($id);
+        $category = $categoryRepository->find($id);
+        //j'appelle ma fonction qui retourne les articles qui sont dans une caté spécifique
+        $articles = $category->getArticles();
 
-        if (!$categoryFound) { // si category = null
+        if (!$category) { // si category = null
             return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)
         }
         return $this->render('category_show.html.twig',
-            ['category' => $categoryFound]);
+            ['category' => $category
+            , 'articles' => $articles]);
         // rend le fichier twig en lui passant la catégorie récupérée
 
     }

@@ -23,6 +23,13 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $color = null;
 
+
+    //fonction pour avoir mes articles appartenant à une category
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

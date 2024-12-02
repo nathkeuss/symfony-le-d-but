@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,10 +39,33 @@ class ArticleController extends AbstractController
     // je peux évidemment mettre une autre variable (content, title...)
     #[Route('/article/{id}', 'article_show', ['id' => '\d+'])]
     // je mets en paramètre la variable correspondant à ma route
-    public function showArticle(int $id, ArticleRepository $articleRepository): Response
+    public function showArticle(int $id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         // méthode find($id) du repo, récupère les articles suivant leur id
         $articleFound = $articleRepository->find($id);
+        //ajouter commentaire
+        $comment = new Comment();
+        $comment->setArticle($articleFound);
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('article_show.html.twig',
+            ['formView' => $formView,
+            'articles' => $articleFound
+        ]);
+
+
 
         //--------------------------------------------------------------------------//
         //appelle de la méthode createFromGlobals
@@ -63,9 +88,9 @@ class ArticleController extends AbstractController
         //}
         //--------------------------------------------------------------------------//
 
-        if (!$articleFound) { // si article = null
-            return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)
-        }
+        //if (!$articleFound) { // si article = null
+        //    return $this->redirectToRoute('error'); //redirige vers ma page error (grâce à symfony)
+        //}
 
         // la méthode render de la classe AbtractController
         // récupère le fichier twig passé en paramètre
@@ -74,9 +99,9 @@ class ArticleController extends AbstractController
         // elle créé une réponse HTTP valide
         // avec en status 200
         // et en body, le HTML généré
-        return $this->render('article_show.html.twig', [
-            'articles' => $articleFound
-        ]);
+        //return $this->render('article_show.html.twig', [
+        //    'articles' => $articleFound
+        //]);
     }
 
 
